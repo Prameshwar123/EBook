@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "15336452314",
+    "project_id": "jetreader-45d1a",
+    "storage_bucket": "jetreader-45d1a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:15336452314:android:b523dcb8c4aa2dccb135e3",
+        "android_client_info": {
+          "package_name": "com.example.ebook"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDUBiIjFupi4s00WFAVOOjT8tj6MmFqJV0"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
