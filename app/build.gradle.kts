@@ -91,4 +91,6 @@ dependencies {
     implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
     // Coil
     implementation("io.coil-kt:coil-compose:1.4.0")
+    //material icons
+    implementation("androidx.compose.material:material-icons-extended:1.6.7")
 }
