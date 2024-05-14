@@ -10,8 +10,10 @@ import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.Logout
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material.icons.filled.Favorite
+import androidx.compose.material.icons.filled.Logout
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.IconButton
@@ -38,6 +40,8 @@ import androidx.compose.ui.tooling.preview.PreviewParameter
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.navigation.NavController
+import com.example.ebook.navigation.ReaderScreens
+import com.google.firebase.auth.FirebaseAuth
 
 @Composable
 fun ReaderLogo(modifier: Modifier = Modifier) {
@@ -163,6 +167,17 @@ fun ReaderAppBar(
                 color = Color.Red.copy(alpha = 0.7f),
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
             )
+            Spacer(modifier = Modifier.width(150.dp))
         }
-    })}
+    },
+        actions = {
+            IconButton(onClick = {
+                FirebaseAuth.getInstance().signOut().run{
+                    navController.navigate(ReaderScreens.LoginScreen.name)
+                }
+            }) {
+                Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = "Logout")
+            }
+        })
+}
 

@@ -25,7 +25,6 @@ fun Home(navController: NavController) {
     Scaffold(topBar = {
         ReaderAppBar(title = "EReader", navController = navController)
 
-
     },
         floatingActionButton = {
             FABContent {
