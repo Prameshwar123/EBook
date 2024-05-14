@@ -176,7 +176,7 @@ fun ReaderAppBar(
                     navController.navigate(ReaderScreens.LoginScreen.name)
                 }
             }) {
-                Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = "Logout")
+                Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = "Logout",tint = Color.Green.copy(0.4f))
             }
         })
 }
