@@ -7,9 +7,11 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
+import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
@@ -31,8 +33,10 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
@@ -50,8 +54,7 @@ import com.google.firebase.auth.FirebaseAuth
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-@Preview
-fun Home(navController: NavController = NavController(LocalContext.current)) {
+fun Home(navController: NavController) {
     Scaffold(topBar = {
         ReaderAppBar(title = "EReader", navController = navController)
 
@@ -73,14 +76,13 @@ fun Home(navController: NavController = NavController(LocalContext.current)) {
 
 @Composable
 fun HomeContent(navController: NavController){
-    val email = FirebaseAuth.getInstance().currentUser?.email
-    val currentUserName = if (!email.isNullOrEmpty())
-        email
+    val currentUserName = if (!FirebaseAuth.getInstance().currentUser?.email.isNullOrEmpty())
+        FirebaseAuth.getInstance().currentUser?.email
             ?.split("@")?.get(0)
         else "N/A"
     Column(
         Modifier.padding(2.dp),
-        verticalArrangement = Arrangement.Top
+        verticalArrangement = Arrangement.SpaceEvenly
         ) {
         Row(modifier = Modifier.align(alignment = Alignment.Start)) {
             TitleSection(label = "Your reading \n" + "activity right now...")
@@ -108,6 +110,7 @@ fun HomeContent(navController: NavController){
                 Divider()
             }
         }
+        ListCard()
     }
 }
 
@@ -167,6 +170,10 @@ fun ListCard(
             Text(text = "Authors: All...", modifier = Modifier.padding(4.dp),
                 style = MaterialTheme.typography.bodySmall)
         }
+        Row(modifier = Modifier.fillMaxSize(),horizontalArrangement = Arrangement.End,
+            verticalAlignment = Alignment.Bottom) {
+            RoundedButton(label = "Reading", radius = 70)
+        }
     }
 }
 
@@ -185,6 +192,27 @@ fun BookRating(score: Double = 4.5) {
             Icon(imageVector = Icons.Filled.StarBorder, contentDescription = "Star",
                 modifier = Modifier.padding(3.dp))
             Text(text = score.toString(), style = MaterialTheme.typography.labelMedium, modifier = Modifier.padding(start = 5.dp))
+        }
+    }
+}
+
+@Preview
+@Composable
+fun RoundedButton(
+    label: String = "Reading",
+    radius: Int = 29,
+    onPress: () -> Unit = {}
+){
+    Surface(modifier = Modifier.clip(RoundedCornerShape(
+        bottomEndPercent = radius,
+        topStartPercent = radius,
+    )),
+        color = Color(0xFF92CBDF)) {
+        Column(modifier = Modifier
+            .width(90.dp)
+            .heightIn(40.dp)
+            .clickable { onPress.invoke() }, verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally){
+            Text(text = label, style = TextStyle(color = Color.White, fontSize = 15.sp))
         }
     }
 }
