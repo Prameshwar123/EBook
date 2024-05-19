@@ -165,8 +165,10 @@ fun ListCard(
                 maxLines = 2,
                 overflow = TextOverflow.Ellipsis
                 )
-            Text(text = "Authors: All...", modifier = Modifier.padding(4.dp),
-                style = MaterialTheme.typography.bodySmall)
+            Text(
+                text = "Authors: All...", modifier = Modifier.padding(4.dp),
+                style = MaterialTheme.typography.bodySmall
+            )
         }
         Row(modifier = Modifier.fillMaxSize(),horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.Bottom) {
