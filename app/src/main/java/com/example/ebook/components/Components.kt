@@ -3,6 +3,7 @@ package com.example.ebook.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -33,6 +34,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.MutableState
 import androidx.compose.ui.Alignment
@@ -161,10 +163,9 @@ fun ReaderAppBar(
 ) {
 
     TopAppBar(title = {
-        Row(verticalAlignment = Alignment.CenterVertically) {
+        Row(verticalAlignment = Alignment.CenterVertically){
             if (showProfile) {
-                Icon(
-                    imageVector = Icons.Default.Favorite,
+                Icon(imageVector = Icons.Default.Favorite,
                     contentDescription = "Logo Icon",
                     modifier = Modifier
                         .clip(RoundedCornerShape(12.dp))
@@ -177,23 +178,30 @@ fun ReaderAppBar(
                     tint = Color.Red.copy(alpha = 0.7f),
                     modifier = Modifier.clickable { onBackArrowClicked.invoke() })
             }
-            Spacer(modifier = Modifier.width(40.dp))
-            Text(
-                text = title,
+            Spacer(modifier = Modifier.width(40.dp) )
+            Text(text = title,
                 color = Color.Red.copy(alpha = 0.7f),
-                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp)
-            )
+                style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp))
         }
+
+
     },
         actions = {
             IconButton(onClick = {
-                FirebaseAuth.getInstance().signOut().run{
-                    navController.navigate(ReaderScreens.LoginScreen.name)
-                }
+                FirebaseAuth.getInstance()
+                    .signOut().run {
+                        navController.navigate(ReaderScreens.LoginScreen.name)
+                    }
             }) {
-                Icon(imageVector = Icons.AutoMirrored.Filled.Logout, contentDescription = "Logout",tint = Color.Green.copy(0.4f))
+                if (showProfile) Row {
+                    Icon(imageVector = Icons.AutoMirrored.Filled.Logout,
+                        contentDescription = "Logout" ,
+                        // tint = Color.Green.copy(alpha = 0.4f)
+                    )
+                }else Box {}
             }
-        })
+        },
+        colors = TopAppBarDefaults.smallTopAppBarColors(containerColor = Color.Transparent))
 }
 
 @Composable

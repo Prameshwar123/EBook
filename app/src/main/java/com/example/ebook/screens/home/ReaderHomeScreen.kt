@@ -1,6 +1,5 @@
 package com.example.ebook.screens.home
 
-import android.annotation.SuppressLint
 import android.util.Log
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.horizontalScroll
@@ -39,7 +38,6 @@ import com.example.ebook.model.MBook
 import com.example.ebook.navigation.ReaderScreens
 import com.google.firebase.auth.FirebaseAuth
 
-@SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun Home(navController: NavController) {
@@ -54,7 +52,7 @@ fun Home(navController: NavController) {
 
         }) {
         //content
-        Surface(modifier = Modifier.fillMaxSize()) {
+        Surface(modifier = Modifier.fillMaxSize().padding(it)) {
             //home content
             HomeContent(navController)
         }
@@ -75,7 +73,7 @@ fun HomeContent(navController: NavController){
         else "N/A"
     Column(
         Modifier.padding(2.dp),
-        verticalArrangement = Arrangement.Center
+        verticalArrangement = Arrangement.Top
         ) {
         Row(modifier = Modifier.align(alignment = Alignment.Start)) {
             TitleSection(label = "Your reading \n" + "activity right now...")
