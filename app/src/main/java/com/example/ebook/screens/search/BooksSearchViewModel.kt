@@ -40,7 +40,7 @@ class BooksSearchViewModel @Inject constructor(private val repository: BookRepos
                     }
                     is Resource.Error -> {
                         isLoading = false
-                        Log.e("Network", "searchBooks: Failed getting books", )
+                        Log.e("Network", "searchBooks: Failed getting books")
                     }
                     else -> {isLoading = false}
                 }

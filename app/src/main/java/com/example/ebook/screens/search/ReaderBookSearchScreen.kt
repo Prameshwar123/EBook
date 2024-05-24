@@ -34,6 +34,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.RectangleShape
 import androidx.compose.ui.platform.LocalSoftwareKeyboardController
+import androidx.compose.ui.text.font.FontStyle
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -43,7 +44,6 @@ import com.example.ebook.components.InputField
 import com.example.ebook.components.ReaderAppBar
 import com.example.ebook.model.Item
 import com.example.ebook.navigation.ReaderScreens
-import com.google.api.Distribution.BucketOptions.Linear
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -110,10 +110,22 @@ fun BookRow(book: Item, navController: NavController) {
                     .width(80.dp)
                     .fillMaxHeight()
                     .padding(end = 4.dp))
-            Column() {
+            Column {
                 Text(text = book.volumeInfo.title, overflow = TextOverflow.Ellipsis)
-                Text(text = "Author: ${book.volumeInfo.authors}", overflow = TextOverflow.Clip, style = MaterialTheme.typography.bodyMedium)
-                //Todo: Add more fields later!
+                Text(
+                    text = "Author: ${book.volumeInfo.authors}",
+                    overflow = TextOverflow.Clip,
+                    fontStyle = FontStyle.Italic,
+                    style = MaterialTheme.typography.bodyMedium
+                )
+                Text(text =  "Date: ${book.volumeInfo.publishedDate}",
+                    overflow = TextOverflow.Clip,
+                    fontStyle = FontStyle.Italic,
+                    style = MaterialTheme.typography.bodyMedium)
+                Text(text =  "${book.volumeInfo.categories}",
+                    overflow = TextOverflow.Clip,
+                    fontStyle = FontStyle.Italic,
+                    style = MaterialTheme.typography.bodyMedium)
             }
         }
     }
