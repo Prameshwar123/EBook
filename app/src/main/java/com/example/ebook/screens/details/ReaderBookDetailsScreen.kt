@@ -38,7 +38,8 @@ fun BookDetailsScreen(navController: NavController, bookId: String, viewModel: D
     }) {
         Surface(modifier = Modifier
             .padding(it)
-            .fillMaxSize()) {
+            .fillMaxSize()
+        ) {
             Column(
                 modifier = Modifier.padding(top = 12.dp),
                 verticalArrangement = Arrangement.Top,
