@@ -2,6 +2,7 @@ package com.example.ebook.screens.search
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -76,7 +77,10 @@ fun SearchScreen(navController: NavController, viewModel: BooksSearchViewModel =
 fun BookList(navController: NavController, viewModel: BooksSearchViewModel = hiltViewModel()) {
     val listOfBooks = viewModel.list
     if(viewModel.isLoading) {
-        LinearProgressIndicator()
+        Row(modifier = Modifier.padding(end = 2.dp), horizontalArrangement = Arrangement.SpaceBetween, verticalAlignment = Alignment.CenterVertically) {
+            LinearProgressIndicator()
+            Text(text = "Loading...")
+        }
     }
     else{
         LazyColumn(modifier = Modifier.fillMaxSize(), contentPadding = PaddingValues(16.dp)) {
