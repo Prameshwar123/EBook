@@ -3,7 +3,6 @@ package com.example.ebook.screens.details
 import androidx.compose.foundation.BorderStroke
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
@@ -37,9 +36,12 @@ import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import coil.compose.rememberImagePainter
 import com.example.ebook.components.ReaderAppBar
+import com.example.ebook.components.RoundedButton
 import com.example.ebook.data.Resource
 import com.example.ebook.model.Item
+import com.example.ebook.model.MBook
 import com.example.ebook.navigation.ReaderScreens
+import com.google.firebase.firestore.FirebaseFirestore
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
@@ -106,7 +108,9 @@ fun ShowBookDetails(bookInfo: Resource<Item>, navController: NavController) {
     Spacer(modifier = Modifier.height(5.dp))
     val cleanDescription = HtmlCompat.fromHtml(bookData!!.description, HtmlCompat.FROM_HTML_MODE_LEGACY).toString()
     val localDims = LocalContext.current.resources.displayMetrics
-    Surface(modifier = Modifier.height(localDims.heightPixels.dp.times(0.09f)).padding(4.dp), shape = RectangleShape, border = BorderStroke(1.dp, Color.DarkGray)) {
+    Surface(modifier = Modifier
+        .height(localDims.heightPixels.dp.times(0.09f))
+        .padding(4.dp), shape = RectangleShape, border = BorderStroke(1.dp, Color.DarkGray)) {
         LazyColumn(modifier = Modifier.padding(3.dp)) {
             item {
                 Text(text = cleanDescription)
@@ -114,4 +118,20 @@ fun ShowBookDetails(bookInfo: Resource<Item>, navController: NavController) {
         }
     }
     // Buttons
+    Row(modifier = Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
+        RoundedButton(label = "Save") {
+            // save this book tofirestore database
+            val book = MBook()
+            saveToFirebase(book)
+            
+        }
+        Spacer(modifier = Modifier.width(25.dp))
+        RoundedButton(label = "Cancel") {
+            navController.popBackStack()
+        }
+    }
+}
+
+fun saveToFirebase(book: MBook) {
+    val db = FirebaseFirestore.getInstance()
 }
