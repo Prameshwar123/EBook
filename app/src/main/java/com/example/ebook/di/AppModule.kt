@@ -2,7 +2,9 @@ package com.example.ebook.di
 
 import com.example.ebook.network.BooksApi
 import com.example.ebook.repository.BookRepository
+import com.example.ebook.repository.FireRepository
 import com.example.ebook.utils.Constants
+import com.google.firebase.firestore.FirebaseFirestore
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
@@ -16,7 +18,9 @@ import javax.inject.Singleton
 object AppModule {
     @Singleton
     @Provides
-    fun provideBookRepository(api: BooksApi) = BookRepository(api)
+    fun provideFireBookRepository()
+            = FireRepository(queryBook = FirebaseFirestore.getInstance()
+        .collection("books"))
     @Singleton
     @Provides
     fun provideBookApi(): BooksApi {
