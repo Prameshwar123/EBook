@@ -57,9 +57,11 @@ fun ReaderLoginScreen(navController: NavController,
                     navController.navigate(ReaderScreens.ReaderHomeScreen.name)
                 }
             }
-            else UserForm(loading = false, isCreateAccount = true) { email, password ->
-                viewModel.createUserWithEmailAndPassword(email, password) {
-                    navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+            else {
+                UserForm(loading = false, isCreateAccount = true) { email, password ->
+                    viewModel.createUserWithEmailAndPassword(email, password) {
+                        navController.navigate(ReaderScreens.ReaderHomeScreen.name)
+                    }
                 }
             }
         }
@@ -75,17 +77,14 @@ fun ReaderLoginScreen(navController: NavController,
                 modifier = Modifier
                     .clickable {
                         showLoginForm.value = !showLoginForm.value
-
                     }
                     .padding(start = 5.dp),
                 fontWeight = FontWeight.Bold,
                 color = MaterialTheme.colorScheme.secondary)
-
         }
     }
 }
 
-@OptIn(ExperimentalComposeUiApi::class)
 @Preview
 @Composable
 fun UserForm(
@@ -149,7 +148,6 @@ fun SubmitButton(
     ) {
         if (loading) CircularProgressIndicator(modifier = Modifier.size(25.dp))
         else Text(text = textId, modifier = Modifier.padding(5.dp))
-
     }
 }
 

@@ -79,7 +79,8 @@ import com.google.firebase.auth.FirebaseAuth
 fun ReaderLogo(modifier: Modifier = Modifier) {
     Text(
         modifier = modifier.padding(bottom = 16.dp),
-        text = "EReader", style = MaterialTheme.typography.displaySmall,
+        text = "EReader",
+        style = MaterialTheme.typography.displaySmall,
         color = Color.Red.copy(alpha = 0.5f)
     )
 }
@@ -117,12 +118,17 @@ fun InputField(
     onAction: KeyboardActions = KeyboardActions.Default
 ) {
     OutlinedTextField(
-        value = valueState.value, onValueChange = { valueState.value = it },
-        label = { Text(text = labelId)}, singleLine = isSingleLine, textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground),
+        value = valueState.value,
+        onValueChange = { valueState.value = it },
+        label = { Text(text = labelId) },
+        singleLine = isSingleLine,
+        textStyle = TextStyle(fontSize = 18.sp, color = MaterialTheme.colorScheme.onBackground),
         modifier = modifier
             .padding(bottom = 10.dp, start = 10.dp, end = 10.dp)
-            .fillMaxWidth(), enabled = enabled,
-        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction), keyboardActions = onAction
+            .fillMaxWidth(),
+        enabled = enabled,
+        keyboardOptions = KeyboardOptions(keyboardType = keyboardType, imeAction = imeAction),
+        keyboardActions = onAction
     )
 }
 
@@ -197,7 +203,6 @@ fun ReaderAppBar(
                 color = Color.Red.copy(alpha = 0.7f),
                 style = TextStyle(fontWeight = FontWeight.Bold, fontSize = 20.sp))
         }
-
 
     },
         actions = {
@@ -295,7 +300,7 @@ fun ListCard(
                     horizontalAlignment = Alignment.CenterHorizontally
                 ) {
                     Icon(imageVector = Icons.Rounded.FavoriteBorder, contentDescription = "Fav Icon", modifier = Modifier.padding(bottom = 1.dp))
-                    BookRating(score = 3.5)
+                    BookRating(score = book.rating!!)
                 }
             }
             Text(
@@ -310,9 +315,13 @@ fun ListCard(
                 style = MaterialTheme.typography.bodyMedium
             )
         }
+        val isStartedReading = remember {
+            mutableStateOf(false)
+        }
         Row(modifier = Modifier.fillMaxSize(),horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.Bottom) {
-            RoundedButton(label = "Reading", radius = 70)
+            isStartedReading.value = book.startedReading != null
+            RoundedButton(label = if(isStartedReading.value) "Reading" else "Not Started", radius = 70)
         }
     }
 }

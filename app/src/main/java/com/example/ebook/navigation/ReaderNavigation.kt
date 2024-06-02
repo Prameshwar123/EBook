@@ -10,10 +10,12 @@ import androidx.navigation.navArgument
 import com.example.ebook.screens.ReaderSplashScreen
 import com.example.ebook.screens.details.BookDetailsScreen
 import com.example.ebook.screens.home.Home
+import com.example.ebook.screens.home.HomeScreenViewModel
 import com.example.ebook.screens.login.ReaderLoginScreen
 import com.example.ebook.screens.search.BooksSearchViewModel
 import com.example.ebook.screens.search.SearchScreen
 import com.example.ebook.screens.stats.ReaderStatsScreen
+import com.example.ebook.screens.update.BookUpdateScreen
 
 @Composable
 fun ReaderNavigation() {
@@ -26,10 +28,12 @@ fun ReaderNavigation() {
             ReaderLoginScreen(navController = navController)
         }
         composable(ReaderScreens.ReaderStatsScreen.name) {
-            ReaderStatsScreen(navController = navController)
+            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            ReaderStatsScreen(navController = navController, viewModel = homeViewModel)
         }
         composable(ReaderScreens.ReaderHomeScreen.name) {
-            Home(navController = navController)
+            val homeViewModel = hiltViewModel<HomeScreenViewModel>()
+            Home(navController = navController, viewModel = homeViewModel)
         }
         val detailName = ReaderScreens.DetailScreen.name
         composable("$detailName/{bookId}", arguments = listOf(navArgument("bookId"){
@@ -42,6 +46,15 @@ fun ReaderNavigation() {
         composable(ReaderScreens.SearchScreen.name) {
             val searchViewModel = hiltViewModel<BooksSearchViewModel>()
             SearchScreen(navController = navController, viewModel = searchViewModel)
+        }
+        val updateName = ReaderScreens.UpdateScreen.name
+        composable("$updateName/{bookItemId}",
+            arguments = listOf(navArgument("bookItemId") {
+                type = NavType.StringType
+            })) { navBackStackEntry ->
+            navBackStackEntry.arguments?.getString("bookItemId").let {
+                BookUpdateScreen(navController = navController, bookItemId = it.toString())
+            }
         }
     }
 }

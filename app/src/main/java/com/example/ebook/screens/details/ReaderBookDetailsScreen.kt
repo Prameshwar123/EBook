@@ -119,10 +119,8 @@ fun ShowBookDetails(bookInfo: Resource<Item>, navController: NavController) {
             }
         }
     }
-    // Buttons
     Row(modifier = Modifier.padding(top = 6.dp), horizontalArrangement = Arrangement.SpaceAround) {
         RoundedButton(label = "Save") {
-            // save this book to firestore database
             val book = MBook(
                 title = bookData.title,
                 authors = bookData.authors.toString(),
