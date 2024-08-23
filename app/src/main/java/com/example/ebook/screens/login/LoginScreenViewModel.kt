@@ -25,7 +25,6 @@ class LoginScreenViewModel: ViewModel() {
                 .addOnCompleteListener {  task ->
                     if (task.isSuccessful){
                         Log.d("FB","signInWithEmailAndPassword: Yayayay! ${task.result.toString()}")
-                        //TODO("take them home")
                         home()
                     }else {
                         Log.d("FB", "signInWithEmailAndPassword: ${task.result.toString()}")

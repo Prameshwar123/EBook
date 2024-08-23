@@ -1,4 +1,6 @@
-import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
+import org.gradle.internal.impldep.com.amazonaws.PredefinedClientConfigurations.defaultConfig
+
+//import org.jetbrains.kotlin.kapt3.base.Kapt.kapt
 
 plugins {
     id("com.android.application")
@@ -11,20 +13,20 @@ plugins {
 android {
     namespace = "com.example.ebook"
     compileSdk = 34
-
+    
     defaultConfig {
         applicationId = "com.example.ebook"
         minSdk = 24
         targetSdk = 33
         versionCode = 1
         versionName = "1.0"
-
+        
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
         vectorDrawables {
             useSupportLibrary = true
         }
     }
-
+    
     buildTypes {
         release {
             isMinifyEnabled = false
@@ -97,8 +99,8 @@ dependencies {
     implementation("com.squareup.retrofit2:retrofit:2.9.0")
     // OkHttp
     implementation("com.squareup.okhttp3:okhttp:5.0.0-alpha.2")
-
+    
     // JSON Converter
     implementation("com.squareup.retrofit2:converter-gson:2.9.0")
-
+    
 }
